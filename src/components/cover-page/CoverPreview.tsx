@@ -117,17 +117,23 @@ const CoverPreview: React.FC<CoverPreviewProps> = ({
                       )}
                       {visibility.submittedById && (
                         <p className="text-sm text-foreground">
-                          ID: {coverData.submittedBy.id}
+                          <span className="text-[13px] font-semibold"> ID: </span> {coverData.submittedBy.id}
                         </p>
                       )}
                       {visibility.submittedBySection && (
                         <p className="text-sm text-foreground">
-                          Section: {coverData.submittedBy.section}
+                          <span className="text-[13px] font-semibold"> Section: </span> {coverData.submittedBy.section}
+                        </p>
+                      )}
+                      {visibility.submittedBySession && (
+                        <p className="text-sm text-foreground">
+                          <span className="text-[13px] font-semibold"> Session: </span> {coverData.submittedBy.session}
                         </p>
                       )}
                       {visibility.submittedByProgram && (
                         <p className="text-sm text-foreground">
-                          {coverData.submittedBy.program}
+                          {/* {coverData.submittedBy.program} */}
+                          <span className="text-[13px] font-semibold"> Dept: </span> {coverData.submittedBy.program}
                         </p>
                       )}
                     </div>
@@ -145,12 +151,12 @@ const CoverPreview: React.FC<CoverPreviewProps> = ({
                       )}
                       {visibility.submittedToDesignation && (
                         <p className="text-sm text-foreground">
-                          {coverData.submittedTo.designation}
+                          {coverData.submittedTo.designation},
                         </p>
                       )}
                       {visibility.submittedToDepartment && (
                         <p className="text-sm text-foreground">
-                          {coverData.submittedTo.department}
+                          {coverData.submittedTo.department},
                         </p>
                       )}
                       {visibility.submittedToUniversity && (

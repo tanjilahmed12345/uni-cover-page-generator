@@ -29,6 +29,7 @@ export interface CoverPageData {
     name: string;
     id: string;
     section: string;
+    session: string;
     program: string;
   };
   submittedTo: {
@@ -60,6 +61,7 @@ export interface VisibilityState {
   submittedByName: boolean;
   submittedById: boolean;
   submittedBySection: boolean;
+  submittedBySession: boolean;
   submittedByProgram: boolean;
   submittedToName: boolean;
   submittedToDesignation: boolean;
@@ -72,41 +74,42 @@ const CoverPage: React.FC = () => {
   // State management section
   const previewRef = useRef<HTMLDivElement>(null);
   const logoInputRef = useRef<HTMLInputElement>(null);
-  
+
   const [selectedTemplate, setSelectedTemplate] = useState<string>('classic-1');
   const [currentTemplate, setCurrentTemplate] = useState<DesignTemplate>(designTemplates[0]);
-  
+
   // Font customization states
-  const [universityNameFontSize, setUniversityNameFontSize] = useState<string>('text-4xl');
-  const [universityNameFontFamily, setUniversityNameFontFamily] = useState<string>('font-serif');  
+  const [universityNameFontSize, setUniversityNameFontSize] = useState<string>('text-3xl');
+  const [universityNameFontFamily, setUniversityNameFontFamily] = useState<string>('font-serif');
   const [universityNameFontStyle, setUniversityNameFontStyle] = useState<string>('not-italic');
-  
+
   const [projectTitleFontSize, setProjectTitleFontSize] = useState<string>('text-2xl');
   const [projectTitleFontFamily, setProjectTitleFontFamily] = useState<string>('font-serif');
   const [projectTitleFontStyle, setProjectTitleFontStyle] = useState<string>('not-italic');
-  
+
   const [showSubmissionDateBorder, setShowSubmissionDateBorder] = useState<boolean>(false);
 
   const [coverData, setCoverData] = useState<CoverPageData>({
-    universityName: 'University of Excellence',
+    universityName: 'University of Codeforces',
     logoUrl: universityLogo,
-    logoWidth: 120,
-    logoHeight: 120,
+    logoWidth: 140,
+    logoHeight: 140,
     documentType: 'Project Report',
-    courseCode: 'CSE 4001',
+    courseCode: 'CSE 401',
     courseTitle: 'Software Engineering',
     projectTitle: 'Dynamic Cover Page Generator',
     submittedBy: {
-      name: 'John Doe',
-      id: '201812345',
+      name: 'Mr. Programmer',
+      id: '2018331546',
       section: 'A',
-      program: 'Computer Science & Engineering'
+      session: '2018-19',
+      program: 'CSE'
     },
     submittedTo: {
-      name: 'Dr. Jane Smith',
+      name: 'Dr. Tanjil Ahmed',
       designation: 'Professor',
-      department: 'Department of Computer Science',
-      university: 'University of Excellence'
+      department: 'Department of CSE',
+      university: 'University of Codeforces'
     },
     submissionDate: new Date().toLocaleDateString('en-GB'),
     styles: {
@@ -131,6 +134,7 @@ const CoverPage: React.FC = () => {
     submittedByName: true,
     submittedById: true,
     submittedBySection: true,
+    submittedBySession: true,
     submittedByProgram: true,
     submittedToName: true,
     submittedToDesignation: true,
@@ -145,12 +149,12 @@ const CoverPage: React.FC = () => {
       const keys = path.split('.');
       const newData = { ...prev };
       let current: any = newData;
-      
+
       for (let i = 0; i < keys.length - 1; i++) {
         current[keys[i]] = { ...current[keys[i]] };
         current = current[keys[i]];
       }
-      
+
       current[keys[keys.length - 1]] = value;
       return newData;
     });
@@ -204,31 +208,31 @@ const CoverPage: React.FC = () => {
   // Download functionality section
   const downloadAsPDF = async () => {
     if (!previewRef.current) return;
-    
+
     const canvas = await html2canvas(previewRef.current, {
       scale: 2,
       backgroundColor: '#ffffff',
       logging: false,
     });
-    
+
     const imgData = canvas.toDataURL('image/png');
     const pdf = new jsPDF('p', 'mm', 'a4');
     const pdfWidth = pdf.internal.pageSize.getWidth();
     const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-    
+
     pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
     pdf.save(`${coverData.projectTitle.replace(/\s+/g, '_')}_cover.pdf`);
   };
 
   const downloadAsImage = async (format: 'png' | 'jpg' | 'webp') => {
     if (!previewRef.current) return;
-    
+
     const canvas = await html2canvas(previewRef.current, {
       scale: 2,
       backgroundColor: '#ffffff',
       logging: false,
     });
-    
+
     const link = document.createElement('a');
     link.download = `${coverData.projectTitle.replace(/\s+/g, '_')}_cover.${format}`;
     link.href = canvas.toDataURL(`image/${format}`, 0.9);
@@ -257,7 +261,7 @@ const CoverPage: React.FC = () => {
               currentTemplate={currentTemplate}
               onTemplateChange={handleTemplateChange}
             />
-            
+
             <BasicInformation
               coverData={coverData}
               visibility={visibility}
@@ -270,7 +274,7 @@ const CoverPage: React.FC = () => {
               universityNameFontStyle={universityNameFontStyle}
               onUniversityNameFontChange={handleUniversityNameFontChange}
             />
-            
+
             <CourseDetails
               coverData={coverData}
               visibility={visibility}
@@ -283,14 +287,14 @@ const CoverPage: React.FC = () => {
               showSubmissionDateBorder={showSubmissionDateBorder}
               onSubmissionDateBorderChange={setShowSubmissionDateBorder}
             />
-            
+
             <StudentInstructorSection
               coverData={coverData}
               visibility={visibility}
               onUpdateCoverData={updateCoverData}
               onUpdateVisibility={updateVisibility}
             />
-            
+
             <DownloadOptions
               onDownloadPDF={downloadAsPDF}
               onDownloadImage={downloadAsImage}

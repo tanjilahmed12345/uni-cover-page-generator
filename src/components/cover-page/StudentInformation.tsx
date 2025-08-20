@@ -88,10 +88,31 @@ const StudentInformation: React.FC<StudentInformationProps> = ({
           </div>
         </div>
 
+      {/* Session */}
+        <div className="flex items-center gap-2">
+          <div className="flex-1">
+            <Label className="text-xs font-medium text-foreground">Session</Label>
+            <Input
+              value={coverData.submittedBy.session}
+              onChange={(e) => onUpdateCoverData('submittedBy.session', e.target.value)}
+              className="mt-1"
+            />
+          </div>
+          <div className="flex items-center space-x-1 mt-4">
+            <Checkbox
+              id="show-by-session"
+              checked={visibility.submittedBySession}
+              onCheckedChange={(checked) => onUpdateVisibility('submittedBySession', checked as boolean)}
+            />
+            <Label htmlFor="show-by-session" className="text-xs">Show</Label>
+          </div>
+        </div>
+
+
         {/* Program */}  
         <div className="flex items-center gap-2">
           <div className="flex-1">
-            <Label className="text-xs font-medium text-foreground">Program</Label>
+            <Label className="text-xs font-medium text-foreground">Department</Label>
             <Input
               value={coverData.submittedBy.program}
               onChange={(e) => onUpdateCoverData('submittedBy.program', e.target.value)}
