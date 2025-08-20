@@ -33,7 +33,7 @@ const CoverPreview: React.FC<CoverPreviewProps> = ({
   showSubmissionDateBorder
 }) => {
   return (
-    <div className="lg:sticky lg:top-6">
+    <div className="lg:sticky">
       <Card className="shadow-professional">
         <CardContent className="p-2">
           <div className="aspect-[210/297] bg-white  max-h-[800px]">

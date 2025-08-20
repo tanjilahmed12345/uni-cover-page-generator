@@ -83,7 +83,7 @@ const CoverPage: React.FC = () => {
   const [universityNameFontFamily, setUniversityNameFontFamily] = useState<string>('font-serif');
   const [universityNameFontStyle, setUniversityNameFontStyle] = useState<string>('not-italic');
 
-  const [projectTitleFontSize, setProjectTitleFontSize] = useState<string>('text-2xl');
+  const [projectTitleFontSize, setProjectTitleFontSize] = useState<string>('text-xl');
   const [projectTitleFontFamily, setProjectTitleFontFamily] = useState<string>('font-serif');
   const [projectTitleFontStyle, setProjectTitleFontStyle] = useState<string>('not-italic');
 
@@ -97,7 +97,7 @@ const CoverPage: React.FC = () => {
     documentType: 'Project Report',
     courseCode: 'CSE 401',
     courseTitle: 'Software Engineering',
-    projectTitle: 'Dynamic Cover Page Generator',
+    projectTitle: 'Design and Development of a University Management System (UMS)',
     submittedBy: {
       name: 'Mr. Programmer',
       id: '2018331546',
