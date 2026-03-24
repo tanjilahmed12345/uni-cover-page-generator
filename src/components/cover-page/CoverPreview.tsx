@@ -5,7 +5,7 @@
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import type { CoverPageData, VisibilityState } from '../CoverPage';
+import type { CoverPageData, VisibilityState } from '@/types/cover-page';
 
 interface CoverPreviewProps {
   previewRef: React.RefObject<HTMLDivElement>;

@@ -8,7 +8,12 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
-import type { CoverPageData, VisibilityState } from '../CoverPage';
+import type { CoverPageData, VisibilityState } from '@/types/cover-page';
+import {
+  PROJECT_TITLE_FONT_SIZES,
+  FONT_FAMILY_OPTIONS,
+  FONT_STYLE_OPTIONS,
+} from '@/constants/cover-page';
 
 interface CourseDetailsProps {
   coverData: CoverPageData;
@@ -115,11 +120,9 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="text-xl">Small</SelectItem>
-                  <SelectItem value="text-2xl">Medium</SelectItem>
-                  <SelectItem value="text-3xl">Large</SelectItem>
-                  <SelectItem value="text-4xl">X-Large</SelectItem>
-                  <SelectItem value="text-5xl">XX-Large</SelectItem>
+                  {PROJECT_TITLE_FONT_SIZES.map(opt => (
+                    <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>
@@ -130,9 +133,9 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="font-serif">Serif</SelectItem>
-                  <SelectItem value="font-sans">Sans</SelectItem>
-                  <SelectItem value="font-mono">Mono</SelectItem>
+                  {FONT_FAMILY_OPTIONS.map(opt => (
+                    <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>
@@ -143,8 +146,9 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="not-italic">Normal</SelectItem>
-                  <SelectItem value="italic">Italic</SelectItem>
+                  {FONT_STYLE_OPTIONS.map(opt => (
+                    <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>

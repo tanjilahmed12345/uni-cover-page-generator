@@ -7,7 +7,9 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Palette } from 'lucide-react';
-import { designTemplates, type DesignTemplate } from '../DesignTemplates';
+import type { DesignTemplate } from '@/types/cover-page';
+import { designTemplates } from '@/data/design-templates';
+import { TEMPLATE_CATEGORIES } from '@/constants/cover-page';
 
 interface TemplateSelectorProps {
   selectedTemplate: string;
@@ -36,7 +38,7 @@ const TemplateSelector: React.FC<TemplateSelectorProps> = ({
                 <SelectValue />
               </SelectTrigger>
               <SelectContent className="max-h-60">
-                {['Classic', 'Modern', 'Creative', 'Professional', 'Minimalist'].map(category => (
+                {TEMPLATE_CATEGORIES.map(category => (
                   <div key={category}>
                     <div className="px-2 py-1 text-xs font-semibold text-foreground bg-muted">{category}</div>
                     {designTemplates

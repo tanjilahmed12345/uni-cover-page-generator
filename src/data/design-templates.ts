@@ -1,22 +1,4 @@
-export interface DesignTemplate {
-  id: string;
-  name: string;
-  category: 'Classic' | 'Modern' | 'Creative' | 'Professional' | 'Minimalist';
-  styles: {
-    fontSize: {
-      title: string;
-      heading: string;
-      body: string;
-    };
-    fontFamily: string;
-    primaryColor: string;
-    accentColor: string;
-    backgroundColor: string;
-    borderStyle: string;
-    layout: 'centered' | 'left-aligned' | 'modern-grid';
-    decorativeElements: boolean;
-  };
-}
+import type { DesignTemplate } from '@/types/cover-page';
 
 export const designTemplates: DesignTemplate[] = [
   // Classic Templates (1-10)

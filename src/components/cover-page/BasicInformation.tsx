@@ -10,7 +10,13 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
 import { Camera } from 'lucide-react';
-import type { CoverPageData, VisibilityState } from '../CoverPage';
+import type { CoverPageData, VisibilityState } from '@/types/cover-page';
+import {
+  DOCUMENT_TYPES,
+  UNIVERSITY_NAME_FONT_SIZES,
+  FONT_FAMILY_OPTIONS,
+  FONT_STYLE_OPTIONS,
+} from '@/constants/cover-page';
 
 interface BasicInformationProps {
   coverData: CoverPageData;
@@ -74,11 +80,9 @@ const BasicInformation: React.FC<BasicInformationProps> = ({
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="text-2xl">Small</SelectItem>
-                  <SelectItem value="text-3xl">Medium</SelectItem>
-                  <SelectItem value="text-4xl">Large</SelectItem>
-                  <SelectItem value="text-5xl">X-Large</SelectItem>
-                  <SelectItem value="text-6xl">XX-Large</SelectItem>
+                  {UNIVERSITY_NAME_FONT_SIZES.map(opt => (
+                    <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>
@@ -89,9 +93,9 @@ const BasicInformation: React.FC<BasicInformationProps> = ({
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="font-serif">Serif</SelectItem>
-                  <SelectItem value="font-sans">Sans</SelectItem>
-                  <SelectItem value="font-mono">Mono</SelectItem>
+                  {FONT_FAMILY_OPTIONS.map(opt => (
+                    <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>
@@ -102,8 +106,9 @@ const BasicInformation: React.FC<BasicInformationProps> = ({
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="not-italic">Normal</SelectItem>
-                  <SelectItem value="italic">Italic</SelectItem>
+                  {FONT_STYLE_OPTIONS.map(opt => (
+                    <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>
@@ -174,11 +179,9 @@ const BasicInformation: React.FC<BasicInformationProps> = ({
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="Project Report">Project Report</SelectItem>
-                  <SelectItem value="Assignment">Assignment</SelectItem>
-                  <SelectItem value="Lab Report">Lab Report</SelectItem>
-                  <SelectItem value="Thesis">Thesis</SelectItem>
-                  <SelectItem value="Dissertation">Dissertation</SelectItem>
+                  {DOCUMENT_TYPES.map(type => (
+                    <SelectItem key={type} value={type}>{type}</SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>

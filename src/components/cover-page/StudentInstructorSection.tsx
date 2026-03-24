@@ -6,7 +6,7 @@ import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import StudentInformation from './StudentInformation';
 import InstructorInformation from './InstructorInformation';
-import type { CoverPageData, VisibilityState } from '../CoverPage';
+import type { CoverPageData, VisibilityState } from '@/types/cover-page';
 
 interface StudentInstructorSectionProps {
   coverData: CoverPageData;
