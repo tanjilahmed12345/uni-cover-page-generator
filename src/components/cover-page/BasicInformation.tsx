@@ -110,18 +110,27 @@ const BasicInformation: React.FC<BasicInformationProps> = ({
 
           {/* Document Type Section */}
           <div className="flex items-center gap-3">
-            <div className="flex-1">
+            <div className="flex-1 space-y-2">
               <Label htmlFor="documentType" className="text-sm font-medium text-foreground">Document Type</Label>
-              <Select value={coverData.documentType} onValueChange={(value) => onUpdateCoverData('documentType', value)}>
-                <SelectTrigger className="mt-1">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {DOCUMENT_TYPES.map(type => (
-                    <SelectItem key={type} value={type}>{type}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <div className="flex gap-2">
+                <Select onValueChange={(value) => onUpdateCoverData('documentType', value)}>
+                  <SelectTrigger className="w-[160px]">
+                    <SelectValue placeholder="Quick pick" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {DOCUMENT_TYPES.map(type => (
+                      <SelectItem key={type} value={type}>{type}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <Input
+                  id="documentType"
+                  value={coverData.documentType}
+                  onChange={(e) => onUpdateCoverData('documentType', e.target.value)}
+                  placeholder="Or type your own..."
+                  className="flex-1"
+                />
+              </div>
             </div>
             <div className="flex items-center space-x-2 mt-6">
               <Checkbox

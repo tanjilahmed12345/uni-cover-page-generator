@@ -57,6 +57,12 @@ const CoverPage: React.FC = () => {
               onTemplateChange={handleTemplateChange}
             />
 
+            <DownloadOptions
+              onDownloadPDF={downloadAsPDF}
+              onDownloadImage={downloadAsImage}
+              isExporting={isExporting}
+            />
+
             <BasicInformation
               coverData={coverData}
               visibility={visibility}
@@ -90,11 +96,6 @@ const CoverPage: React.FC = () => {
               onUpdateVisibility={updateVisibility}
             />
 
-            <DownloadOptions
-              onDownloadPDF={downloadAsPDF}
-              onDownloadImage={downloadAsImage}
-              isExporting={isExporting}
-            />
           </div>
 
           <div className="overflow-y-auto max-h-full">
