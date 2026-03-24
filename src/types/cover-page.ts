@@ -15,6 +15,7 @@ export interface DesignTemplate {
     accentColor: string;
     backgroundColor: string;
     borderStyle: string;
+    accentBgColor: string;
     layout: 'centered' | 'left-aligned' | 'modern-grid';
     decorativeElements: boolean;
   };

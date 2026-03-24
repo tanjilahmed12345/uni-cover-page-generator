@@ -101,6 +101,7 @@ const CoverPage: React.FC = () => {
               previewRef={previewRef}
               coverData={coverData}
               visibility={visibility}
+              template={currentTemplate}
               universityNameFontSize={universityNameFontSize}
               universityNameFontFamily={universityNameFontFamily}
               universityNameFontStyle={universityNameFontStyle}
