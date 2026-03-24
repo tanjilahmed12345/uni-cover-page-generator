@@ -124,8 +124,8 @@ const CoverPreview: React.FC<CoverPreviewProps> = ({
 
   const renderSubmissionInfo = () => (
     <div className={`grid grid-cols-2 gap-0 border ${styles.borderStyle}`}>
-      <div className={`text-left p-4 border-r ${styles.borderStyle}`}>
-        <h4 className={`${coverData.styles.fontSize.body} font-bold ${styles.primaryColor} mb-3 pb-1 border-b ${styles.borderStyle}`}>
+      <div className={`text-left p-3 border-r ${styles.borderStyle}`}>
+        <h4 className={`${coverData.styles.fontSize.body} font-bold ${styles.primaryColor} mb-2 pb-1 border-b ${styles.borderStyle}`}>
           Submitted By:
         </h4>
         <div className="space-y-1">
@@ -140,8 +140,8 @@ const CoverPreview: React.FC<CoverPreviewProps> = ({
         </div>
       </div>
 
-      <div className="text-left p-4">
-        <h4 className={`${coverData.styles.fontSize.body} font-bold ${styles.primaryColor} mb-3 pb-1 border-b ${styles.borderStyle}`}>
+      <div className="text-left p-3">
+        <h4 className={`${coverData.styles.fontSize.body} font-bold ${styles.primaryColor} mb-2 pb-1 border-b ${styles.borderStyle}`}>
           Submitted To:
         </h4>
         <div className="space-y-1">
@@ -175,19 +175,18 @@ const CoverPreview: React.FC<CoverPreviewProps> = ({
       <div className="lg:sticky">
         <Card className="shadow-professional">
           <CardContent className="p-2">
-            <div className="aspect-[210/297] max-h-[800px]">
+            <div className="aspect-[210/297] overflow-hidden">
               <div
                 ref={previewRef}
                 className={`w-full h-full ${styles.backgroundColor} ${coverData.styles.fontFamily} flex`}
-                style={{ minHeight: '842px' }}
               >
                 {/* Accent sidebar */}
                 <div className={`w-2 ${styles.accentBgColor}`} />
 
-                <div className="flex-1 p-10 flex flex-col justify-between">
+                <div className="flex-1 px-8 py-6 flex flex-col justify-between">
                   {renderHeader()}
 
-                  <div className="space-y-6 flex-1 flex flex-col justify-center">
+                  <div className="space-y-4 flex-1 flex flex-col justify-center">
                     {renderCourseAndProject()}
                     <div className={`w-16 h-1 ${styles.accentBgColor}`} />
                     {renderSubmissionInfo()}
@@ -208,25 +207,24 @@ const CoverPreview: React.FC<CoverPreviewProps> = ({
     <div className="lg:sticky">
       <Card className="shadow-professional">
         <CardContent className="p-2">
-          <div className="aspect-[210/297] max-h-[800px]">
+          <div className="aspect-[210/297] overflow-hidden">
             <div
               ref={previewRef}
-              className={`w-full h-full p-12 ${styles.backgroundColor} ${coverData.styles.fontFamily} flex flex-col justify-between`}
-              style={{ minHeight: '842px' }}
+              className={`w-full h-full px-10 py-8 ${styles.backgroundColor} ${coverData.styles.fontFamily} flex flex-col justify-between`}
             >
               {renderHeader()}
 
-              <div className="space-y-8 flex-1 flex flex-col justify-center">
+              <div className="space-y-4 flex-1 flex flex-col justify-center">
                 {renderCourseAndProject()}
 
                 {styles.decorativeElements ? (
-                  <div className="flex items-center gap-3 my-4">
+                  <div className="flex items-center gap-3 my-2">
                     <div className={`flex-1 h-px ${styles.accentBgColor}`} />
                     <div className={`w-2 h-2 rounded-full ${styles.accentBgColor}`} />
                     <div className={`flex-1 h-px ${styles.accentBgColor}`} />
                   </div>
                 ) : (
-                  <div className={`h-px ${styles.accentBgColor} my-4`} />
+                  <div className={`h-px ${styles.accentBgColor} my-2`} />
                 )}
 
                 {renderSubmissionInfo()}
