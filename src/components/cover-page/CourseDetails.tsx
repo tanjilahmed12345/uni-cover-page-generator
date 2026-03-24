@@ -20,6 +20,12 @@ interface CourseDetailsProps {
   onSubmissionDateBorderChange: (value: boolean) => void;
 }
 
+const COURSE_FIELDS: { id: string; label: string; dataKey: keyof CoverPageData; visibilityKey: keyof VisibilityState }[] = [
+  { id: 'courseCode', label: 'Course Code', dataKey: 'courseCode', visibilityKey: 'courseCode' },
+  { id: 'courseTitle', label: 'Course Title', dataKey: 'courseTitle', visibilityKey: 'courseTitle' },
+  { id: 'projectTitle', label: 'Project Title', dataKey: 'projectTitle', visibilityKey: 'projectTitle' },
+];
+
 const CourseDetails: React.FC<CourseDetailsProps> = ({
   coverData,
   visibility,
@@ -38,35 +44,18 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({
         <h2 className="text-heading font-semibold text-primary mb-4">Course & Project Details</h2>
 
         <div className="space-y-4">
-          <FormFieldWithVisibility
-            id="courseCode"
-            label="Course Code"
-            value={coverData.courseCode}
-            onChange={(v) => onUpdateCoverData('courseCode', v)}
-            visibilityChecked={visibility.courseCode}
-            onVisibilityChange={(c) => onUpdateVisibility('courseCode', c)}
-            labelSize="sm"
-          />
-
-          <FormFieldWithVisibility
-            id="courseTitle"
-            label="Course Title"
-            value={coverData.courseTitle}
-            onChange={(v) => onUpdateCoverData('courseTitle', v)}
-            visibilityChecked={visibility.courseTitle}
-            onVisibilityChange={(c) => onUpdateVisibility('courseTitle', c)}
-            labelSize="sm"
-          />
-
-          <FormFieldWithVisibility
-            id="projectTitle"
-            label="Project Title"
-            value={coverData.projectTitle}
-            onChange={(v) => onUpdateCoverData('projectTitle', v)}
-            visibilityChecked={visibility.projectTitle}
-            onVisibilityChange={(c) => onUpdateVisibility('projectTitle', c)}
-            labelSize="sm"
-          />
+          {COURSE_FIELDS.map(({ id, label, dataKey, visibilityKey }) => (
+            <FormFieldWithVisibility
+              key={id}
+              id={id}
+              label={label}
+              value={coverData[dataKey] as string}
+              onChange={(v) => onUpdateCoverData(dataKey, v)}
+              visibilityChecked={visibility[visibilityKey]}
+              onVisibilityChange={(c) => onUpdateVisibility(visibilityKey, c)}
+              labelSize="sm"
+            />
+          ))}
 
           <FontCustomizer
             fontSizeOptions={PROJECT_TITLE_FONT_SIZES}

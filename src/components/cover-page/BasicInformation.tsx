@@ -62,26 +62,18 @@ const BasicInformation: React.FC<BasicInformationProps> = ({
 
           {/* Logo Size Controls */}
           <div className="grid grid-cols-2 gap-4">
-            <div>
-              <Label htmlFor="logoWidth" className="text-sm font-medium text-foreground">Logo Width (px)</Label>
-              <Input
-                id="logoWidth"
-                type="number"
-                value={coverData.logoWidth}
-                onChange={(e) => onUpdateCoverData('logoWidth', parseInt(e.target.value) || 120)}
-                className="mt-1"
-              />
-            </div>
-            <div>
-              <Label htmlFor="logoHeight" className="text-sm font-medium text-foreground">Logo Height (px)</Label>
-              <Input
-                id="logoHeight"
-                type="number"
-                value={coverData.logoHeight}
-                onChange={(e) => onUpdateCoverData('logoHeight', parseInt(e.target.value) || 120)}
-                className="mt-1"
-              />
-            </div>
+            {([['logoWidth', 'Logo Width (px)'], ['logoHeight', 'Logo Height (px)']] as const).map(([key, label]) => (
+              <div key={key}>
+                <Label htmlFor={key} className="text-sm font-medium text-foreground">{label}</Label>
+                <Input
+                  id={key}
+                  type="number"
+                  value={coverData[key]}
+                  onChange={(e) => onUpdateCoverData(key, parseInt(e.target.value) || 120)}
+                  className="mt-1"
+                />
+              </div>
+            ))}
           </div>
 
           {/* Logo Upload Section */}

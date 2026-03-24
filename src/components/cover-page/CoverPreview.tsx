@@ -107,6 +107,21 @@ const CoverPreview: React.FC<CoverPreviewProps> = ({
     </div>
   );
 
+  const submittedByFields: { key: keyof VisibilityState; label?: string; value: string; isName?: boolean }[] = [
+    { key: 'submittedByName', value: coverData.submittedBy.name, isName: true },
+    { key: 'submittedById', label: 'ID', value: coverData.submittedBy.id },
+    { key: 'submittedBySection', label: 'Section', value: coverData.submittedBy.section },
+    { key: 'submittedBySession', label: 'Session', value: coverData.submittedBy.session },
+    { key: 'submittedByProgram', label: 'Dept', value: coverData.submittedBy.program },
+  ];
+
+  const submittedToFields: { key: keyof VisibilityState; value: string; isName?: boolean; suffix?: string }[] = [
+    { key: 'submittedToName', value: coverData.submittedTo.name, isName: true },
+    { key: 'submittedToDesignation', value: coverData.submittedTo.designation, suffix: ',' },
+    { key: 'submittedToDepartment', value: coverData.submittedTo.department, suffix: ',' },
+    { key: 'submittedToUniversity', value: coverData.submittedTo.university },
+  ];
+
   const renderSubmissionInfo = () => (
     <div className={`grid grid-cols-2 gap-0 border ${styles.borderStyle}`}>
       <div className={`text-left p-4 border-r ${styles.borderStyle}`}>
@@ -114,30 +129,13 @@ const CoverPreview: React.FC<CoverPreviewProps> = ({
           Submitted By:
         </h4>
         <div className="space-y-1">
-          {visibility.submittedByName && (
-            <p className={`${coverData.styles.fontSize.body} font-semibold ${textColor}`}>
-              {coverData.submittedBy.name}
-            </p>
-          )}
-          {visibility.submittedById && (
-            <p className={`text-sm ${subtextColor}`}>
-              <span className="text-[13px] font-semibold">ID: </span>{coverData.submittedBy.id}
-            </p>
-          )}
-          {visibility.submittedBySection && (
-            <p className={`text-sm ${subtextColor}`}>
-              <span className="text-[13px] font-semibold">Section: </span>{coverData.submittedBy.section}
-            </p>
-          )}
-          {visibility.submittedBySession && (
-            <p className={`text-sm ${subtextColor}`}>
-              <span className="text-[13px] font-semibold">Session: </span>{coverData.submittedBy.session}
-            </p>
-          )}
-          {visibility.submittedByProgram && (
-            <p className={`text-sm ${subtextColor}`}>
-              <span className="text-[13px] font-semibold">Dept: </span>{coverData.submittedBy.program}
-            </p>
+          {submittedByFields.map(({ key, label, value, isName }) =>
+            visibility[key] && (
+              <p key={key} className={isName ? `${coverData.styles.fontSize.body} font-semibold ${textColor}` : `text-sm ${subtextColor}`}>
+                {label && <span className="text-[13px] font-semibold">{label}: </span>}
+                {value}
+              </p>
+            )
           )}
         </div>
       </div>
@@ -147,25 +145,12 @@ const CoverPreview: React.FC<CoverPreviewProps> = ({
           Submitted To:
         </h4>
         <div className="space-y-1">
-          {visibility.submittedToName && (
-            <p className={`${coverData.styles.fontSize.body} font-semibold ${textColor}`}>
-              {coverData.submittedTo.name}
-            </p>
-          )}
-          {visibility.submittedToDesignation && (
-            <p className={`text-sm ${subtextColor}`}>
-              {coverData.submittedTo.designation},
-            </p>
-          )}
-          {visibility.submittedToDepartment && (
-            <p className={`text-sm ${subtextColor}`}>
-              {coverData.submittedTo.department},
-            </p>
-          )}
-          {visibility.submittedToUniversity && (
-            <p className={`text-sm ${subtextColor}`}>
-              {coverData.submittedTo.university}
-            </p>
+          {submittedToFields.map(({ key, value, isName, suffix }) =>
+            visibility[key] && (
+              <p key={key} className={isName ? `${coverData.styles.fontSize.body} font-semibold ${textColor}` : `text-sm ${subtextColor}`}>
+                {value}{suffix}
+              </p>
+            )
           )}
         </div>
       </div>

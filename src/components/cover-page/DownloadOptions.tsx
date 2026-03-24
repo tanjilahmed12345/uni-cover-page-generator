@@ -9,6 +9,8 @@ interface DownloadOptionsProps {
   isExporting?: boolean;
 }
 
+const IMAGE_FORMATS = ['png', 'jpg', 'webp'] as const;
+
 const DownloadOptions: React.FC<DownloadOptionsProps> = ({
   onDownloadPDF,
   onDownloadImage,
@@ -29,20 +31,17 @@ const DownloadOptions: React.FC<DownloadOptionsProps> = ({
             {isExporting ? 'Exporting...' : 'Download PDF'}
           </Button>
 
-          <Button variant="outline" onClick={() => onDownloadImage('png')} disabled={isExporting}>
-            <FileImage className="w-4 h-4 mr-2" />
-            Download PNG
-          </Button>
-
-          <Button variant="outline" onClick={() => onDownloadImage('jpg')} disabled={isExporting}>
-            <FileImage className="w-4 h-4 mr-2" />
-            Download JPG
-          </Button>
-
-          <Button variant="outline" onClick={() => onDownloadImage('webp')} disabled={isExporting}>
-            <FileImage className="w-4 h-4 mr-2" />
-            Download WebP
-          </Button>
+          {IMAGE_FORMATS.map((format) => (
+            <Button
+              key={format}
+              variant="outline"
+              onClick={() => onDownloadImage(format)}
+              disabled={isExporting}
+            >
+              <FileImage className="w-4 h-4 mr-2" />
+              Download {format.toUpperCase()}
+            </Button>
+          ))}
         </div>
       </CardContent>
     </Card>

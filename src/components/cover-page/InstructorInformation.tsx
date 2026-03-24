@@ -9,6 +9,13 @@ interface InstructorInformationProps {
   onUpdateVisibility: (key: keyof VisibilityState, value: boolean) => void;
 }
 
+const INSTRUCTOR_FIELDS: { id: string; label: string; dataKey: keyof CoverPageData['submittedTo']; visibilityKey: keyof VisibilityState }[] = [
+  { id: 'to-name', label: 'Name', dataKey: 'name', visibilityKey: 'submittedToName' },
+  { id: 'to-designation', label: 'Designation', dataKey: 'designation', visibilityKey: 'submittedToDesignation' },
+  { id: 'to-department', label: 'Department', dataKey: 'department', visibilityKey: 'submittedToDepartment' },
+  { id: 'to-university', label: 'University', dataKey: 'university', visibilityKey: 'submittedToUniversity' },
+];
+
 const InstructorInformation: React.FC<InstructorInformationProps> = ({
   coverData,
   visibility,
@@ -22,38 +29,17 @@ const InstructorInformation: React.FC<InstructorInformationProps> = ({
         Instructor Information
       </h3>
       <div className="space-y-3">
-        <FormFieldWithVisibility
-          id="to-name"
-          label="Name"
-          value={coverData.submittedTo.name}
-          onChange={(v) => onUpdateCoverData('submittedTo.name', v)}
-          visibilityChecked={visibility.submittedToName}
-          onVisibilityChange={(c) => onUpdateVisibility('submittedToName', c)}
-        />
-        <FormFieldWithVisibility
-          id="to-designation"
-          label="Designation"
-          value={coverData.submittedTo.designation}
-          onChange={(v) => onUpdateCoverData('submittedTo.designation', v)}
-          visibilityChecked={visibility.submittedToDesignation}
-          onVisibilityChange={(c) => onUpdateVisibility('submittedToDesignation', c)}
-        />
-        <FormFieldWithVisibility
-          id="to-department"
-          label="Department"
-          value={coverData.submittedTo.department}
-          onChange={(v) => onUpdateCoverData('submittedTo.department', v)}
-          visibilityChecked={visibility.submittedToDepartment}
-          onVisibilityChange={(c) => onUpdateVisibility('submittedToDepartment', c)}
-        />
-        <FormFieldWithVisibility
-          id="to-university"
-          label="University"
-          value={coverData.submittedTo.university}
-          onChange={(v) => onUpdateCoverData('submittedTo.university', v)}
-          visibilityChecked={visibility.submittedToUniversity}
-          onVisibilityChange={(c) => onUpdateVisibility('submittedToUniversity', c)}
-        />
+        {INSTRUCTOR_FIELDS.map(({ id, label, dataKey, visibilityKey }) => (
+          <FormFieldWithVisibility
+            key={id}
+            id={id}
+            label={label}
+            value={coverData.submittedTo[dataKey]}
+            onChange={(v) => onUpdateCoverData(`submittedTo.${dataKey}`, v)}
+            visibilityChecked={visibility[visibilityKey]}
+            onVisibilityChange={(c) => onUpdateVisibility(visibilityKey, c)}
+          />
+        ))}
       </div>
     </div>
   );

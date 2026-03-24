@@ -9,6 +9,14 @@ interface StudentInformationProps {
   onUpdateVisibility: (key: keyof VisibilityState, value: boolean) => void;
 }
 
+const STUDENT_FIELDS: { id: string; label: string; dataKey: keyof CoverPageData['submittedBy']; visibilityKey: keyof VisibilityState }[] = [
+  { id: 'by-name', label: 'Name', dataKey: 'name', visibilityKey: 'submittedByName' },
+  { id: 'by-id', label: 'Student ID', dataKey: 'id', visibilityKey: 'submittedById' },
+  { id: 'by-section', label: 'Section', dataKey: 'section', visibilityKey: 'submittedBySection' },
+  { id: 'by-session', label: 'Session', dataKey: 'session', visibilityKey: 'submittedBySession' },
+  { id: 'by-program', label: 'Department', dataKey: 'program', visibilityKey: 'submittedByProgram' },
+];
+
 const StudentInformation: React.FC<StudentInformationProps> = ({
   coverData,
   visibility,
@@ -22,46 +30,17 @@ const StudentInformation: React.FC<StudentInformationProps> = ({
         Student Information
       </h3>
       <div className="space-y-3">
-        <FormFieldWithVisibility
-          id="by-name"
-          label="Name"
-          value={coverData.submittedBy.name}
-          onChange={(v) => onUpdateCoverData('submittedBy.name', v)}
-          visibilityChecked={visibility.submittedByName}
-          onVisibilityChange={(c) => onUpdateVisibility('submittedByName', c)}
-        />
-        <FormFieldWithVisibility
-          id="by-id"
-          label="Student ID"
-          value={coverData.submittedBy.id}
-          onChange={(v) => onUpdateCoverData('submittedBy.id', v)}
-          visibilityChecked={visibility.submittedById}
-          onVisibilityChange={(c) => onUpdateVisibility('submittedById', c)}
-        />
-        <FormFieldWithVisibility
-          id="by-section"
-          label="Section"
-          value={coverData.submittedBy.section}
-          onChange={(v) => onUpdateCoverData('submittedBy.section', v)}
-          visibilityChecked={visibility.submittedBySection}
-          onVisibilityChange={(c) => onUpdateVisibility('submittedBySection', c)}
-        />
-        <FormFieldWithVisibility
-          id="by-session"
-          label="Session"
-          value={coverData.submittedBy.session}
-          onChange={(v) => onUpdateCoverData('submittedBy.session', v)}
-          visibilityChecked={visibility.submittedBySession}
-          onVisibilityChange={(c) => onUpdateVisibility('submittedBySession', c)}
-        />
-        <FormFieldWithVisibility
-          id="by-program"
-          label="Department"
-          value={coverData.submittedBy.program}
-          onChange={(v) => onUpdateCoverData('submittedBy.program', v)}
-          visibilityChecked={visibility.submittedByProgram}
-          onVisibilityChange={(c) => onUpdateVisibility('submittedByProgram', c)}
-        />
+        {STUDENT_FIELDS.map(({ id, label, dataKey, visibilityKey }) => (
+          <FormFieldWithVisibility
+            key={id}
+            id={id}
+            label={label}
+            value={coverData.submittedBy[dataKey]}
+            onChange={(v) => onUpdateCoverData(`submittedBy.${dataKey}`, v)}
+            visibilityChecked={visibility[visibilityKey]}
+            onVisibilityChange={(c) => onUpdateVisibility(visibilityKey, c)}
+          />
+        ))}
       </div>
     </div>
   );

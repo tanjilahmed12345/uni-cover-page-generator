@@ -11,7 +11,7 @@ import type { CoverPageData, VisibilityState } from '@/types/cover-page';
 interface StudentInstructorSectionProps {
   coverData: CoverPageData;
   visibility: VisibilityState;
-  onUpdateCoverData: (path: string, value: any) => void;
+  onUpdateCoverData: (path: string, value: string | number | boolean) => void;
   onUpdateVisibility: (key: keyof VisibilityState, value: boolean) => void;
 }
 
