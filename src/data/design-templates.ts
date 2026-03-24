@@ -16,6 +16,7 @@ export const designTemplates: DesignTemplate[] = [
       accentBgColor: 'bg-blue-300',
       layout: 'centered',
       decorativeElements: true,
+      isDark: false,
     },
   },
   {
@@ -32,6 +33,7 @@ export const designTemplates: DesignTemplate[] = [
       accentBgColor: 'bg-purple-300',
       layout: 'centered',
       decorativeElements: true,
+      isDark: false,
     },
   },
   {
@@ -48,6 +50,7 @@ export const designTemplates: DesignTemplate[] = [
       accentBgColor: 'bg-red-300',
       layout: 'left-aligned',
       decorativeElements: false,
+      isDark: false,
     },
   },
 
@@ -66,6 +69,7 @@ export const designTemplates: DesignTemplate[] = [
       accentBgColor: 'bg-blue-400',
       layout: 'modern-grid',
       decorativeElements: true,
+      isDark: false,
     },
   },
   {
@@ -82,6 +86,7 @@ export const designTemplates: DesignTemplate[] = [
       accentBgColor: 'bg-pink-500',
       layout: 'modern-grid',
       decorativeElements: true,
+      isDark: true,
     },
   },
   {
@@ -98,6 +103,7 @@ export const designTemplates: DesignTemplate[] = [
       accentBgColor: 'bg-gray-300',
       layout: 'left-aligned',
       decorativeElements: false,
+      isDark: false,
     },
   },
 
@@ -116,6 +122,7 @@ export const designTemplates: DesignTemplate[] = [
       accentBgColor: 'bg-orange-300',
       layout: 'left-aligned',
       decorativeElements: true,
+      isDark: false,
     },
   },
   {
@@ -132,6 +139,7 @@ export const designTemplates: DesignTemplate[] = [
       accentBgColor: 'bg-teal-300',
       layout: 'centered',
       decorativeElements: true,
+      isDark: false,
     },
   },
   {
@@ -148,6 +156,7 @@ export const designTemplates: DesignTemplate[] = [
       accentBgColor: 'bg-violet-500',
       layout: 'modern-grid',
       decorativeElements: true,
+      isDark: true,
     },
   },
 
@@ -166,6 +175,7 @@ export const designTemplates: DesignTemplate[] = [
       accentBgColor: 'bg-gray-400',
       layout: 'centered',
       decorativeElements: true,
+      isDark: false,
     },
   },
   {
@@ -182,6 +192,7 @@ export const designTemplates: DesignTemplate[] = [
       accentBgColor: 'bg-slate-300',
       layout: 'left-aligned',
       decorativeElements: true,
+      isDark: false,
     },
   },
   {
@@ -198,6 +209,7 @@ export const designTemplates: DesignTemplate[] = [
       accentBgColor: 'bg-stone-400',
       layout: 'centered',
       decorativeElements: false,
+      isDark: false,
     },
   },
 
@@ -216,6 +228,7 @@ export const designTemplates: DesignTemplate[] = [
       accentBgColor: 'bg-gray-200',
       layout: 'centered',
       decorativeElements: false,
+      isDark: false,
     },
   },
   {
@@ -232,6 +245,7 @@ export const designTemplates: DesignTemplate[] = [
       accentBgColor: 'bg-black',
       layout: 'left-aligned',
       decorativeElements: false,
+      isDark: false,
     },
   },
   {
@@ -248,6 +262,7 @@ export const designTemplates: DesignTemplate[] = [
       accentBgColor: 'bg-slate-200',
       layout: 'centered',
       decorativeElements: false,
+      isDark: false,
     },
   },
 ];

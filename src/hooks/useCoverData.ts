@@ -1,6 +1,9 @@
 import { useState, useRef } from 'react';
+import { toast } from 'sonner';
 import type { CoverPageData, VisibilityState } from '@/types/cover-page';
 import { DEFAULT_COVER_DATA, DEFAULT_VISIBILITY, DEFAULT_FONT_STATE } from '@/constants/cover-page';
+
+const MAX_LOGO_SIZE = 5 * 1024 * 1024; // 5MB
 
 export function useCoverData() {
   const logoInputRef = useRef<HTMLInputElement>(null);
@@ -18,15 +21,15 @@ export function useCoverData() {
 
   const [showSubmissionDateBorder, setShowSubmissionDateBorder] = useState(false);
 
-  const updateCoverData = (path: string, value: any) => {
+  const updateCoverData = (path: string, value: string | number | boolean) => {
     setCoverData(prev => {
       const keys = path.split('.');
       const newData = { ...prev };
-      let current: any = newData;
+      let current: Record<string, unknown> = newData;
 
       for (let i = 0; i < keys.length - 1; i++) {
-        current[keys[i]] = { ...current[keys[i]] };
-        current = current[keys[i]];
+        current[keys[i]] = { ...(current[keys[i]] as Record<string, unknown>) };
+        current = current[keys[i]] as Record<string, unknown>;
       }
 
       current[keys[keys.length - 1]] = value;
@@ -40,13 +43,29 @@ export function useCoverData() {
 
   const handleLogoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        updateCoverData('logoUrl', e.target?.result as string);
-      };
-      reader.readAsDataURL(file);
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) {
+      toast.error('Please upload a valid image file.');
+      return;
     }
+
+    if (file.size > MAX_LOGO_SIZE) {
+      toast.error('Logo file must be under 5MB.');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const result = e.target?.result;
+      if (typeof result === 'string') {
+        updateCoverData('logoUrl', result);
+      }
+    };
+    reader.onerror = () => {
+      toast.error('Failed to read the image file.');
+    };
+    reader.readAsDataURL(file);
   };
 
   const handleUniversityNameFontChange = (property: string, value: string) => {

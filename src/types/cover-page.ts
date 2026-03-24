@@ -18,6 +18,7 @@ export interface DesignTemplate {
     accentBgColor: string;
     layout: 'centered' | 'left-aligned' | 'modern-grid';
     decorativeElements: boolean;
+    isDark: boolean;
   };
 }
 

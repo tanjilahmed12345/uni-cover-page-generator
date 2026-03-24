@@ -1,7 +1,3 @@
-/**
- * BasicInformation Component
- * Handles university name, logo, and document type input fields with visibility controls
- */
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -11,21 +7,17 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
 import { Camera } from 'lucide-react';
 import type { CoverPageData, VisibilityState } from '@/types/cover-page';
-import {
-  DOCUMENT_TYPES,
-  UNIVERSITY_NAME_FONT_SIZES,
-  FONT_FAMILY_OPTIONS,
-  FONT_STYLE_OPTIONS,
-} from '@/constants/cover-page';
+import { DOCUMENT_TYPES, UNIVERSITY_NAME_FONT_SIZES } from '@/constants/cover-page';
+import FormFieldWithVisibility from './FormFieldWithVisibility';
+import FontCustomizer from './FontCustomizer';
 
 interface BasicInformationProps {
   coverData: CoverPageData;
   visibility: VisibilityState;
   logoInputRef: React.RefObject<HTMLInputElement>;
-  onUpdateCoverData: (path: string, value: any) => void;
+  onUpdateCoverData: (path: string, value: string | number | boolean) => void;
   onUpdateVisibility: (key: keyof VisibilityState, value: boolean) => void;
   onLogoUpload: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  // Font customization for University Name
   universityNameFontSize: string;
   universityNameFontFamily: string;
   universityNameFontStyle: string;
@@ -42,77 +34,31 @@ const BasicInformation: React.FC<BasicInformationProps> = ({
   universityNameFontSize,
   universityNameFontFamily,
   universityNameFontStyle,
-  onUniversityNameFontChange
+  onUniversityNameFontChange,
 }) => {
   return (
     <Card className="shadow-professional">
       <CardContent className="p-6">
         <h2 className="text-heading font-semibold text-primary mb-4">Basic Information</h2>
-        
-        <div className="space-y-4">
-          {/* University Name Section */}
-          <div className="flex items-center gap-3">
-            <div className="flex-1">
-              <Label htmlFor="universityName" className="text-sm font-medium text-foreground">University Name</Label>
-              <Input
-                id="universityName"
-                value={coverData.universityName}
-                onChange={(e) => onUpdateCoverData('universityName', e.target.value)}
-                className="mt-1"
-              />
-            </div>
-            <div className="flex items-center space-x-2 mt-6">
-              <Checkbox
-                id="show-university"
-                checked={visibility.universityName}
-                onCheckedChange={(checked) => onUpdateVisibility('universityName', checked as boolean)}
-              />
-              <Label htmlFor="show-university" className="text-sm">Show</Label>
-            </div>
-          </div>
 
-          {/* University Name Font Customization */}
-          <div className="grid grid-cols-3 gap-4 ml-4 p-3 bg-muted/30 rounded">
-            <div>
-              <Label className="text-xs font-medium text-foreground">Font Size</Label>
-              <Select value={universityNameFontSize} onValueChange={(value) => onUniversityNameFontChange('fontSize', value)}>
-                <SelectTrigger className="mt-1">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {UNIVERSITY_NAME_FONT_SIZES.map(opt => (
-                    <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <Label className="text-xs font-medium text-foreground">Font Family</Label>
-              <Select value={universityNameFontFamily} onValueChange={(value) => onUniversityNameFontChange('fontFamily', value)}>
-                <SelectTrigger className="mt-1">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {FONT_FAMILY_OPTIONS.map(opt => (
-                    <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <Label className="text-xs font-medium text-foreground">Font Style</Label>
-              <Select value={universityNameFontStyle} onValueChange={(value) => onUniversityNameFontChange('fontStyle', value)}>
-                <SelectTrigger className="mt-1">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {FONT_STYLE_OPTIONS.map(opt => (
-                    <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
+        <div className="space-y-4">
+          <FormFieldWithVisibility
+            id="universityName"
+            label="University Name"
+            value={coverData.universityName}
+            onChange={(v) => onUpdateCoverData('universityName', v)}
+            visibilityChecked={visibility.universityName}
+            onVisibilityChange={(c) => onUpdateVisibility('universityName', c)}
+            labelSize="sm"
+          />
+
+          <FontCustomizer
+            fontSizeOptions={UNIVERSITY_NAME_FONT_SIZES}
+            currentFontSize={universityNameFontSize}
+            currentFontFamily={universityNameFontFamily}
+            currentFontStyle={universityNameFontStyle}
+            onFontChange={onUniversityNameFontChange}
+          />
 
           {/* Logo Size Controls */}
           <div className="grid grid-cols-2 gap-4">

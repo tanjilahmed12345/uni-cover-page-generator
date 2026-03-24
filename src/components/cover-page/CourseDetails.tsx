@@ -1,31 +1,21 @@
-/**
- * CourseDetails Component
- * Handles course code, course title, project title, and submission date input fields
- */
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
 import type { CoverPageData, VisibilityState } from '@/types/cover-page';
-import {
-  PROJECT_TITLE_FONT_SIZES,
-  FONT_FAMILY_OPTIONS,
-  FONT_STYLE_OPTIONS,
-} from '@/constants/cover-page';
+import { PROJECT_TITLE_FONT_SIZES } from '@/constants/cover-page';
+import FormFieldWithVisibility from './FormFieldWithVisibility';
+import FontCustomizer from './FontCustomizer';
 
 interface CourseDetailsProps {
   coverData: CoverPageData;
   visibility: VisibilityState;
-  onUpdateCoverData: (path: string, value: any) => void;
+  onUpdateCoverData: (path: string, value: string | number | boolean) => void;
   onUpdateVisibility: (key: keyof VisibilityState, value: boolean) => void;
-  // Font customization for Project Title
   projectTitleFontSize: string;
   projectTitleFontFamily: string;
   projectTitleFontStyle: string;
   onProjectTitleFontChange: (property: string, value: string) => void;
-  // Border-top option for submission date
   showSubmissionDateBorder: boolean;
   onSubmissionDateBorderChange: (value: boolean) => void;
 }
@@ -40,142 +30,62 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({
   projectTitleFontStyle,
   onProjectTitleFontChange,
   showSubmissionDateBorder,
-  onSubmissionDateBorderChange
+  onSubmissionDateBorderChange,
 }) => {
   return (
     <Card className="shadow-professional">
       <CardContent className="p-6">
         <h2 className="text-heading font-semibold text-primary mb-4">Course & Project Details</h2>
-        
+
         <div className="space-y-4">
-          {/* Course Code Section */}
-          <div className="flex items-center gap-3">
-            <div className="flex-1">
-              <Label htmlFor="courseCode" className="text-sm font-medium text-foreground">Course Code</Label>
-              <Input
-                id="courseCode"
-                value={coverData.courseCode}
-                onChange={(e) => onUpdateCoverData('courseCode', e.target.value)}
-                className="mt-1"
-              />
-            </div>
-            <div className="flex items-center space-x-2 mt-6">
-              <Checkbox
-                id="show-course-code"
-                checked={visibility.courseCode}
-                onCheckedChange={(checked) => onUpdateVisibility('courseCode', checked as boolean)}
-              />
-              <Label htmlFor="show-course-code" className="text-sm">Show</Label>
-            </div>
-          </div>
+          <FormFieldWithVisibility
+            id="courseCode"
+            label="Course Code"
+            value={coverData.courseCode}
+            onChange={(v) => onUpdateCoverData('courseCode', v)}
+            visibilityChecked={visibility.courseCode}
+            onVisibilityChange={(c) => onUpdateVisibility('courseCode', c)}
+            labelSize="sm"
+          />
 
-          {/* Course Title Section */}
-          <div className="flex items-center gap-3">
-            <div className="flex-1">
-              <Label htmlFor="courseTitle" className="text-sm font-medium text-foreground">Course Title</Label>
-              <Input
-                id="courseTitle"
-                value={coverData.courseTitle}
-                onChange={(e) => onUpdateCoverData('courseTitle', e.target.value)}
-                className="mt-1"
-              />
-            </div>
-            <div className="flex items-center space-x-2 mt-6">
-              <Checkbox
-                id="show-course-title"
-                checked={visibility.courseTitle}
-                onCheckedChange={(checked) => onUpdateVisibility('courseTitle', checked as boolean)}
-              />
-              <Label htmlFor="show-course-title" className="text-sm">Show</Label>
-            </div>
-          </div>
+          <FormFieldWithVisibility
+            id="courseTitle"
+            label="Course Title"
+            value={coverData.courseTitle}
+            onChange={(v) => onUpdateCoverData('courseTitle', v)}
+            visibilityChecked={visibility.courseTitle}
+            onVisibilityChange={(c) => onUpdateVisibility('courseTitle', c)}
+            labelSize="sm"
+          />
 
-          {/* Project Title Section */}
-          <div className="flex items-center gap-3">
-            <div className="flex-1">
-              <Label htmlFor="projectTitle" className="text-sm font-medium text-foreground">Project Title</Label>
-              <Input
-                id="projectTitle"
-                value={coverData.projectTitle}
-                onChange={(e) => onUpdateCoverData('projectTitle', e.target.value)}
-                className="mt-1"
-              />
-            </div>
-            <div className="flex items-center space-x-2 mt-6">
-              <Checkbox
-                id="show-project-title"
-                checked={visibility.projectTitle}
-                onCheckedChange={(checked) => onUpdateVisibility('projectTitle', checked as boolean)}
-              />
-              <Label htmlFor="show-project-title" className="text-sm">Show</Label>
-            </div>
-          </div>
+          <FormFieldWithVisibility
+            id="projectTitle"
+            label="Project Title"
+            value={coverData.projectTitle}
+            onChange={(v) => onUpdateCoverData('projectTitle', v)}
+            visibilityChecked={visibility.projectTitle}
+            onVisibilityChange={(c) => onUpdateVisibility('projectTitle', c)}
+            labelSize="sm"
+          />
 
-          {/* Project Title Font Customization */}
-          <div className="grid grid-cols-3 gap-4 ml-4 p-3 bg-muted/30 rounded">
-            <div>
-              <Label className="text-xs font-medium text-foreground">Font Size</Label>
-              <Select value={projectTitleFontSize} onValueChange={(value) => onProjectTitleFontChange('fontSize', value)}>
-                <SelectTrigger className="mt-1">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {PROJECT_TITLE_FONT_SIZES.map(opt => (
-                    <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <Label className="text-xs font-medium text-foreground">Font Family</Label>
-              <Select value={projectTitleFontFamily} onValueChange={(value) => onProjectTitleFontChange('fontFamily', value)}>
-                <SelectTrigger className="mt-1">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {FONT_FAMILY_OPTIONS.map(opt => (
-                    <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <Label className="text-xs font-medium text-foreground">Font Style</Label>
-              <Select value={projectTitleFontStyle} onValueChange={(value) => onProjectTitleFontChange('fontStyle', value)}>
-                <SelectTrigger className="mt-1">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {FONT_STYLE_OPTIONS.map(opt => (
-                    <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
+          <FontCustomizer
+            fontSizeOptions={PROJECT_TITLE_FONT_SIZES}
+            currentFontSize={projectTitleFontSize}
+            currentFontFamily={projectTitleFontFamily}
+            currentFontStyle={projectTitleFontStyle}
+            onFontChange={onProjectTitleFontChange}
+          />
 
-          {/* Submission Date Section */}
-          <div className="flex items-center gap-3">
-            <div className="flex-1">
-              <Label htmlFor="submissionDate" className="text-sm font-medium text-foreground">Submission Date</Label>
-              <Input
-                id="submissionDate"
-                value={coverData.submissionDate}
-                onChange={(e) => onUpdateCoverData('submissionDate', e.target.value)}
-                className="mt-1"
-              />
-            </div>
-            <div className="flex items-center space-x-2 mt-6">
-              <Checkbox
-                id="show-submission-date"
-                checked={visibility.submissionDate}
-                onCheckedChange={(checked) => onUpdateVisibility('submissionDate', checked as boolean)}
-              />
-              <Label htmlFor="show-submission-date" className="text-sm">Show</Label>
-            </div>
-          </div>
+          <FormFieldWithVisibility
+            id="submissionDate"
+            label="Submission Date"
+            value={coverData.submissionDate}
+            onChange={(v) => onUpdateCoverData('submissionDate', v)}
+            visibilityChecked={visibility.submissionDate}
+            onVisibilityChange={(c) => onUpdateVisibility('submissionDate', c)}
+            labelSize="sm"
+          />
 
-          {/* Border-top option for submission date */}
           <div className="flex items-center gap-3 ml-4">
             <Checkbox
               id="show-submission-date-border"

@@ -34,7 +34,7 @@ const CoverPage: React.FC = () => {
   const { selectedTemplate, currentTemplate, handleTemplateChange } =
     useTemplateManager(setCoverData);
 
-  const { previewRef, downloadAsPDF, downloadAsImage } =
+  const { previewRef, downloadAsPDF, downloadAsImage, isExporting } =
     useCoverExport(coverData.projectTitle);
 
   return (
@@ -93,6 +93,7 @@ const CoverPage: React.FC = () => {
             <DownloadOptions
               onDownloadPDF={downloadAsPDF}
               onDownloadImage={downloadAsImage}
+              isExporting={isExporting}
             />
           </div>
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import type { CoverPageData, VisibilityState, DesignTemplate } from '@/types/cover-page';
 
@@ -30,12 +30,14 @@ const CoverPreview: React.FC<CoverPreviewProps> = ({
   showSubmissionDateBorder,
 }) => {
   const { styles } = template;
-  const isDark = ['bg-gray-900', 'bg-slate-900', 'bg-black'].includes(styles.backgroundColor);
-  const textColor = isDark ? 'text-gray-100' : 'text-gray-800';
-  const subtextColor = isDark ? 'text-gray-300' : 'text-gray-600';
+  const textColor = styles.isDark ? 'text-gray-100' : 'text-gray-800';
+  const subtextColor = styles.isDark ? 'text-gray-300' : 'text-gray-600';
   const isLeftAligned = styles.layout === 'left-aligned';
   const isModernGrid = styles.layout === 'modern-grid';
   const alignment = isLeftAligned ? 'text-left' : 'text-center';
+
+  const [logoError, setLogoError] = useState(false);
+  useEffect(() => { setLogoError(false); }, [coverData.logoUrl]);
 
   const renderHeader = () => (
     <div className={`${alignment} space-y-4`}>
@@ -63,11 +65,12 @@ const CoverPreview: React.FC<CoverPreviewProps> = ({
           {coverData.universityName}
         </h1>
       )}
-      {visibility.logo && coverData.logoUrl && (
+      {visibility.logo && coverData.logoUrl && !logoError && (
         <div className={`${isLeftAligned ? '' : 'flex justify-center'} my-4`}>
           <img
             src={coverData.logoUrl}
             alt="University Logo"
+            onError={() => setLogoError(true)}
             style={{
               width: `${coverData.logoWidth}px`,
               height: `${coverData.logoHeight}px`,

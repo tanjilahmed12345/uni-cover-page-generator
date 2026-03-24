@@ -1,17 +1,11 @@
-/**
- * StudentInformation Component
- * Handles all student-related input fields with individual visibility controls
- */
 import React from 'react';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Checkbox } from '@/components/ui/checkbox';
 import type { CoverPageData, VisibilityState } from '@/types/cover-page';
+import FormFieldWithVisibility from './FormFieldWithVisibility';
 
 interface StudentInformationProps {
   coverData: CoverPageData;
   visibility: VisibilityState;
-  onUpdateCoverData: (path: string, value: any) => void;
+  onUpdateCoverData: (path: string, value: string | number | boolean) => void;
   onUpdateVisibility: (key: keyof VisibilityState, value: boolean) => void;
 }
 
@@ -19,7 +13,7 @@ const StudentInformation: React.FC<StudentInformationProps> = ({
   coverData,
   visibility,
   onUpdateCoverData,
-  onUpdateVisibility
+  onUpdateVisibility,
 }) => {
   return (
     <div className="border border-primary/20 rounded-lg p-4 bg-primary/5">
@@ -28,106 +22,46 @@ const StudentInformation: React.FC<StudentInformationProps> = ({
         Student Information
       </h3>
       <div className="space-y-3">
-        {/* Student Name */}
-        <div className="flex items-center gap-2">
-          <div className="flex-1">
-            <Label className="text-xs font-medium text-foreground">Name</Label>
-            <Input
-              value={coverData.submittedBy.name}
-              onChange={(e) => onUpdateCoverData('submittedBy.name', e.target.value)}
-              className="mt-1"
-            />
-          </div>
-          <div className="flex items-center space-x-1 mt-4">
-            <Checkbox
-              id="show-by-name"
-              checked={visibility.submittedByName}
-              onCheckedChange={(checked) => onUpdateVisibility('submittedByName', checked as boolean)}
-            />
-            <Label htmlFor="show-by-name" className="text-xs">Show</Label>
-          </div>
-        </div>
-
-        {/* Student ID */}
-        <div className="flex items-center gap-2">
-          <div className="flex-1">
-            <Label className="text-xs font-medium text-foreground">Student ID</Label>
-            <Input
-              value={coverData.submittedBy.id}
-              onChange={(e) => onUpdateCoverData('submittedBy.id', e.target.value)}
-              className="mt-1"
-            />
-          </div>
-          <div className="flex items-center space-x-1 mt-4">
-            <Checkbox
-              id="show-by-id"
-              checked={visibility.submittedById}
-              onCheckedChange={(checked) => onUpdateVisibility('submittedById', checked as boolean)}
-            />
-            <Label htmlFor="show-by-id" className="text-xs">Show</Label>
-          </div>
-        </div>
-
-        {/* Section */}
-        <div className="flex items-center gap-2">
-          <div className="flex-1">
-            <Label className="text-xs font-medium text-foreground">Section</Label>
-            <Input
-              value={coverData.submittedBy.section}
-              onChange={(e) => onUpdateCoverData('submittedBy.section', e.target.value)}
-              className="mt-1"
-            />
-          </div>
-          <div className="flex items-center space-x-1 mt-4">
-            <Checkbox
-              id="show-by-section"
-              checked={visibility.submittedBySection}
-              onCheckedChange={(checked) => onUpdateVisibility('submittedBySection', checked as boolean)}
-            />
-            <Label htmlFor="show-by-section" className="text-xs">Show</Label>
-          </div>
-        </div>
-
-      {/* Session */}
-        <div className="flex items-center gap-2">
-          <div className="flex-1">
-            <Label className="text-xs font-medium text-foreground">Session</Label>
-            <Input
-              value={coverData.submittedBy.session}
-              onChange={(e) => onUpdateCoverData('submittedBy.session', e.target.value)}
-              className="mt-1"
-            />
-          </div>
-          <div className="flex items-center space-x-1 mt-4">
-            <Checkbox
-              id="show-by-session"
-              checked={visibility.submittedBySession}
-              onCheckedChange={(checked) => onUpdateVisibility('submittedBySession', checked as boolean)}
-            />
-            <Label htmlFor="show-by-session" className="text-xs">Show</Label>
-          </div>
-        </div>
-
-
-        {/* Program */}  
-        <div className="flex items-center gap-2">
-          <div className="flex-1">
-            <Label className="text-xs font-medium text-foreground">Department</Label>
-            <Input
-              value={coverData.submittedBy.program}
-              onChange={(e) => onUpdateCoverData('submittedBy.program', e.target.value)}
-              className="mt-1"
-            />
-          </div>
-          <div className="flex items-center space-x-1 mt-4">
-            <Checkbox
-              id="show-by-program"
-              checked={visibility.submittedByProgram}
-              onCheckedChange={(checked) => onUpdateVisibility('submittedByProgram', checked as boolean)}
-            />
-            <Label htmlFor="show-by-program" className="text-xs">Show</Label>
-          </div>
-        </div>
+        <FormFieldWithVisibility
+          id="by-name"
+          label="Name"
+          value={coverData.submittedBy.name}
+          onChange={(v) => onUpdateCoverData('submittedBy.name', v)}
+          visibilityChecked={visibility.submittedByName}
+          onVisibilityChange={(c) => onUpdateVisibility('submittedByName', c)}
+        />
+        <FormFieldWithVisibility
+          id="by-id"
+          label="Student ID"
+          value={coverData.submittedBy.id}
+          onChange={(v) => onUpdateCoverData('submittedBy.id', v)}
+          visibilityChecked={visibility.submittedById}
+          onVisibilityChange={(c) => onUpdateVisibility('submittedById', c)}
+        />
+        <FormFieldWithVisibility
+          id="by-section"
+          label="Section"
+          value={coverData.submittedBy.section}
+          onChange={(v) => onUpdateCoverData('submittedBy.section', v)}
+          visibilityChecked={visibility.submittedBySection}
+          onVisibilityChange={(c) => onUpdateVisibility('submittedBySection', c)}
+        />
+        <FormFieldWithVisibility
+          id="by-session"
+          label="Session"
+          value={coverData.submittedBy.session}
+          onChange={(v) => onUpdateCoverData('submittedBy.session', v)}
+          visibilityChecked={visibility.submittedBySession}
+          onVisibilityChange={(c) => onUpdateVisibility('submittedBySession', c)}
+        />
+        <FormFieldWithVisibility
+          id="by-program"
+          label="Department"
+          value={coverData.submittedBy.program}
+          onChange={(v) => onUpdateCoverData('submittedBy.program', v)}
+          visibilityChecked={visibility.submittedByProgram}
+          onVisibilityChange={(c) => onUpdateVisibility('submittedByProgram', c)}
+        />
       </div>
     </div>
   );
